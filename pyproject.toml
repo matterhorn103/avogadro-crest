@@ -1,0 +1,123 @@
+[project]
+name = "avogadro-crest"
+version = "0.1.0"
+description = "A convenient interface to CREST in Avogadro 2"
+readme = "README.md"
+license = "BSD-3-Clause"
+authors = [
+    { name = "Matthew Milner", email = "matterhorn103@proton.me" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "easyxtb>=0.10.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.3",
+    "ruff>=0.7.2",
+]
+
+[project.scripts]
+avogadro-xtb = "avogadro_crest:main"
+
+[build-system]
+requires = ["uv_build>=0.10.2,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64"]  # No Windows, sadly
+
+[tool.pixi.pypi-dependencies]
+avogadro-crest = { path = ".", editable = true }
+
+[tool.pixi.dependencies]
+conda = ">=3.0.2"
+
+[tool.pixi.tasks]
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+target-version = "py310"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.avogadro]
+minimum-avogadro-version = "1.103"
+
+[[tool.avogadro.menu-commands]]
+identifier = "conformers"
+input-format = "xyz"
+input-cjson = true
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "Conformer Search…"
+menu-priorities = [ 107, 890 ]
+
+[[tool.avogadro.menu-commands]]
+identifier = "tautomers"
+input-format = "xyz"
+input-cjson = true
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "Tautomer Search"
+menu-priorities = [ 107, 790 ]
+
+[[tool.avogadro.menu-commands]]
+identifier = "protonate"
+input-format = "xyz"
+input-cjson = true
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "Protonate Molecule"
+menu-priorities = [ 107, 780 ]
+
+[[tool.avogadro.menu-commands]]
+identifier = "deprotonate"
+input-format = "xyz"
+input-cjson = true
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "Deprotonate Molecule"
+menu-priorities = [ 107, 770 ]
+
+[[tool.avogadro.menu-commands]]
+identifier = "solvate"
+input-format = "xyz"
+input-cjson = true
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "Solvate Molecule…"
+menu-priorities = [ 107, 690 ]
+
+[[tool.avogadro.menu-commands]]
+identifier = "open"
+input-format = "xyz"
+input-cjson = true
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "Go to Calculation Files"
+menu-priorities = [ 107, 300 ]
+
+[[tool.avogadro.menu-commands]]
+identifier = "config"
+input-format = "xyz"
+input-cjson = true
+user-options = "dynamic"
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "Configure…"
+menu-priorities = [ 107, 100 ]
+
+[[tool.avogadro.menu-commands]]
+identifier = "docs"
+input-format = "xyz"
+input-cjson = true
+menu = "Extensions"
+submenu = "Semi-Empirical QM (CREST)"
+item = "CREST Help"
+menu-priorities = [ 107, 0 ]
