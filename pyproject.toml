@@ -51,6 +51,7 @@ minimum-avogadro-version = "1.103"
 
 [[tool.avogadro.menu-commands]]
 identifier = "conformers"
+user-options = "dynamic"
 input-format = "xyz"
 input-cjson = true
 menu = "Extensions"

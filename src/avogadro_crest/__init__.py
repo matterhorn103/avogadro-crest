@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Matthew Milner <matterhorn103@proton.me>
 # SPDX-License-Identifier: BSD-3-Clause
 
-"""Package initialization and entry point for the avogadro-xtb Avogadro plugin."""
+"""Package initialization and entry point for the avogadro-crest Avogadro plugin."""
 
 import argparse
 import json
@@ -10,8 +10,6 @@ import sys
 import traceback
 
 import easyxtb
-
-from . import calcs
 
 # Make sure stdout stream is always Unicode, as Avogadro expects
 sys.stdout.reconfigure(encoding="utf-8")
@@ -27,15 +25,26 @@ def run(
     """Run the function corresponding to the selected feature."""
     match feature:
         case "conformers":
-            output = calcs.conformers(avo_input)
+            from .conformers import conformers, get_conformers_options
+            if args["user_options"]:
+                output = {"userOptions": get_conformers_options()}
+            else:
+                output = conformers(avo_input)
         case "tautomers":
+            from . import calcs
             output = calcs.tautomers(avo_input)
         case "protonate":
+            from . import calcs
             output = calcs.protonate(avo_input)
         case "deprotonate":
+            from . import calcs
             output = calcs.deprotonate(avo_input)
         case "solvate":
-            output = calcs.solvate(avo_input)
+            from .solvation import solvate, get_solvation_options
+            if args["user_options"]:
+                output = {"userOptions": get_solvation_options()}
+            else:
+                output = solvate(avo_input)
         case "open":
             from .links import open_calcs_dir
             output = open_calcs_dir(avo_input)
@@ -45,10 +54,8 @@ def run(
         case "config":
             from .config import get_config_options, update_config
             if args["user_options"]:
-                options = get_config_options()
-                output = {"userOptions": options}
+                output = {"userOptions": get_config_options()}
             else:
-                # Read input from Avogadro
                 output = update_config(avo_input)
         case _:
             output = {"error": "The runtype was not recognized!"}
@@ -78,7 +85,8 @@ def main():
     common.add_argument("--lang", nargs="?", default="en")
     common.add_argument("--debug", action="store_true")
 
-    subparsers.add_parser("conformers", parents=[common])
+    conformers_parser = subparsers.add_parser("conformers", parents=[common])
+    conformers_parser.add_argument("--user-options", action="store_true")
     subparsers.add_parser("tautomers", parents=[common])
     subparsers.add_parser("protonate", parents=[common])
     subparsers.add_parser("deprotonate", parents=[common])
