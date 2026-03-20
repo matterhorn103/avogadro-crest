@@ -4,7 +4,7 @@
 
 ## Related projects
 
-An `avogadro-xtb` plugin is also available, providing an interface to `xtb` for the calculation of optimized geometries, vibrational frequencies, and molecular orbitals.
+An [`avogadro-xtb`](https://github.com/matterhorn103/avo_xtb) plugin is also available, providing an interface to `xtb` for the calculation of optimized geometries, vibrational frequencies, and molecular orbitals.
 
 Both plugins are themselves only thin wrappers around the [`easyxtb`](https://github.com/matterhorn103/easyxtb) Python package, which is written and maintained as part of this project.
 `easyxtb` is published on the `PyPI` repository and can be used independently of the plugin from Python as an interface to `xtb` and `crest`.
