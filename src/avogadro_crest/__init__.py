@@ -17,6 +17,17 @@ sys.stdout.reconfigure(encoding="utf-8")
 logger = logging.getLogger(__name__)
 
 
+# Piggyback the easyxtb config and add some extra plugin-specific things
+plugin_defaults = {
+    "energy_units": "kJ/mol",
+    "xtb_opts": {},
+    "crest_opts": {},
+}
+for k, v in plugin_defaults.items():
+    if k not in easyxtb.config:
+        easyxtb.config[k] = v
+
+
 def run(
     avo_input: dict,
     feature: str,
@@ -31,14 +42,14 @@ def run(
             else:
                 output = conformers(avo_input)
         case "tautomers":
-            from . import calcs
-            output = calcs.tautomers(avo_input)
+            from .tautomers import tautomerize
+            output = tautomerize(avo_input)
         case "protonate":
-            from . import calcs
-            output = calcs.protonate(avo_input)
+            from .tautomers import protonate
+            output = protonate(avo_input)
         case "deprotonate":
-            from . import calcs
-            output = calcs.deprotonate(avo_input)
+            from .tautomers import deprotonate
+            output = deprotonate(avo_input)
         case "solvate":
             from .solvation import solvate, get_solvation_options
             if args["user_options"]:
