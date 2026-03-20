@@ -1,5 +1,3 @@
-# avogadro-crest
-
 `avogadro-crest` is a plugin for Avogadro 2 that provides an in-app interface to the ensemble sampling procedures provided by the CREST program.
 
 [`crest`](https://github.com/crest-lab/crest) (Conformer–Rotamer Ensemble Sampling Tool) uses the fast [GFNn-xTB](https://github.com/grimme-lab/xtb) methods of the Grimme group in Bonn to carry out sampling procedures for several interesting applications including conformer searches, thermochemistry, and solvation.
