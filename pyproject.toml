@@ -33,7 +33,7 @@ platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64"]  # No Windows, 
 avogadro-crest = { path = ".", editable = true }
 
 [tool.pixi.dependencies]
-conda = ">=3.0.2"
+crest = ">=3.0.2"
 
 [tool.pixi.tasks]
 
@@ -88,6 +88,7 @@ menu-priorities = [ 107, 770 ]
 
 [[tool.avogadro.menu-commands]]
 identifier = "solvate"
+user-options = "src/options/solvation.toml"
 input-format = "xyz"
 input-cjson = true
 menu = "Extensions"

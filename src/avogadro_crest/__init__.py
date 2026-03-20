@@ -51,11 +51,8 @@ def run(
             from .tautomers import deprotonate
             output = deprotonate(avo_input)
         case "solvate":
-            from .solvation import solvate, get_solvation_options
-            if args["user_options"]:
-                output = {"userOptions": get_solvation_options()}
-            else:
-                output = solvate(avo_input)
+            from .solvation import solvate
+            output = solvate(avo_input)
         case "open":
             from .links import open_calcs_dir
             output = open_calcs_dir(avo_input)
