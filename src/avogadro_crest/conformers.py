@@ -70,15 +70,15 @@ def conformers(avo_input: dict) -> dict:
 
     # crest takes energies in kcal so convert if provided in kJ (default)
     if easyxtb.config["energy_units"] == "kJ/mol":
-        ewin_kcal = avo_input["ewin"] / 4.184
+        ewin_kcal = avo_input["options"]["ewin"] / 4.184
     else:
-        ewin_kcal = avo_input["ewin"]
+        ewin_kcal = avo_input["options"]["ewin"]
 
     # Run calculation
     calc = easyxtb.Calculation.v3(
         geom,
         ewin=ewin_kcal,
-        hess=avo_input["hess"],
+        hess=avo_input["options"]["hess"],
         options=easyxtb.config["crest_opts"],
     )
     calc.run()

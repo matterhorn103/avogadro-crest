@@ -53,8 +53,8 @@ def solvate(avo_input: dict) -> dict:
 
     # Adjust for difference in indexing between what the user's choice was based on 
     # (Avogadro GUI uses 1-indexing) and what we receive (CJSON uses 0-indexing)
-    solute_layer = avo_input["solute_layer"] - 1
-    solvent_layer = avo_input["solvent_layer"] - 1
+    solute_layer = avo_input["options"]["solute_layer"] - 1
+    solvent_layer = avo_input["options"]["solvent_layer"] - 1
 
     solute_cjson = layers[solute_layer]
     solvent_cjson = layers[solvent_layer]
@@ -65,7 +65,7 @@ def solvate(avo_input: dict) -> dict:
     output_geom = easyxtb.calculate.solvate(
         solute_geom,
         solvent_geom,
-        nsolv=avo_input["nsolv"],
+        nsolv=avo_input["options"]["nsolv"],
         options=easyxtb.config["crest_opts"],
     )
 

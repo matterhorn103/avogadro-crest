@@ -132,7 +132,7 @@ def get_config_options() -> dict:
         "warning": {
             "type": "text",
             "label": "Note",
-            "default": "Some changes here will only affect other\ndialogs after restarting Avogadro!",
+            "default": "Changes to these settings also take effect for the xtb plugin!",
             "order": 12.0,
         },
     }
@@ -177,7 +177,7 @@ def update_config(avo_input: dict) -> dict:
         easyxtb.config["calcs_dir"] = str(easyxtb.CALCS_DIR.as_posix())
 
     # Save any changes to binary paths
-    for program in ["xtb"]:
+    for program in ["xtb", "crest"]:
         if not options[f"{program}_bin"]:
             pass
         elif options[f"{program}_bin"] != str():
@@ -186,15 +186,15 @@ def update_config(avo_input: dict) -> dict:
             easyxtb.config[f"{program}_bin"] = str(bin_path.as_posix())
 
     # Update other options that don't need coercing
-    for option in ["n_proc", "energy_units", "solvent", "opt_lvl"]:
+    for option in ["n_proc", "energy_units", "solvent"]:
         easyxtb.config[option] = options[option]
 
     # Update method
     easyxtb.config["method"] = methods.index(options["method"])
 
     # Update extra options for xtb and crest
-    xtb_opts_string = convert_options(opts_string=options["xtb_opts"])[1]
-    easyxtb.config["xtb_opts"] = xtb_opts_string
+    xtb_opts_string = convert_options(opts_string=options["crest_opts"])[1]
+    easyxtb.config["crest_opts"] = xtb_opts_string
 
     easyxtb.configuration.save_config()
 
