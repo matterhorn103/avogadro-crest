@@ -102,7 +102,7 @@ def get_config_options() -> dict:
                 "ether",
                 "ethylacetate",
                 "furane",
-                "hexandecane",
+                "hexadecane",
                 "hexane",
                 "methanol",
                 "nitromethane",
